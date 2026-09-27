@@ -1,6 +1,10 @@
 ﻿using StructuralDesignPatterns.Adapter;
 using StructuralDesignPatterns.Bridge;
 using StructuralDesignPatterns.Composite;
+using StructuralDesignPatterns.Decorator;
+using StructuralDesignPatterns.Facade;
+using StructuralDesignPatterns.Flyweight;
+using StructuralDesignPatterns.Proxy;
 using System.Text;
 
 namespace StructuralDesignPatterns
@@ -59,34 +63,32 @@ namespace StructuralDesignPatterns
                         TestComposite();
                         break;
 
-                    //case "4":
-                    //    TestDecorator();
-                    //    break;
+                    case "4":
+                        TestDecorator();
+                        break;
 
-                    //case "5":
-                    //    TestFacade();
-                    //    break;
+                    case "5":
+                        TestFacade();
+                        break;
 
-                    //case "6":
-                    //    TestFlyweight();
-                    //    break;
+                    case "6":
+                        TestFlyweight();
+                        break;
 
-                    //case "7":
-                    //    TestProxy();
-                    //    break;
+                    case "7":
+                        TestProxy();
+                        break;
 
                     case "8":
                         return;
 
                     default:
-                        Console.WriteLine(
-                            "Invalid Choice.");
+                        Console.WriteLine("Invalid Choice.");
                         break;
                 }
 
                 Console.WriteLine();
-                Console.WriteLine(
-                    "Press any key to continue...");
+                Console.WriteLine("Press any key to continue...");
 
                 Console.ReadKey();
             }
@@ -149,145 +151,116 @@ namespace StructuralDesignPatterns
             root.Display();
         }
 
-        //private static void TestDecorator()
-        //{
-        //    Console.WriteLine(
-        //        "========== DECORATOR PATTERN ==========");
+        private static void TestDecorator()
+        {
+            Console.WriteLine("========== DECORATOR PATTERN ==========");
 
-        //    ICoffee coffee =
-        //        new SimpleCoffee();
+            ICoffee coffee = new SimpleCoffee();
 
-        //    Console.WriteLine(
-        //        $"Base: {coffee.GetDescription()}");
+            Console.WriteLine($"Base: {coffee.GetDescription()}");
 
-        //    Console.WriteLine(
-        //        $"Cost: ₹{coffee.GetCost()}");
+            Console.WriteLine($"Cost: ₹{coffee.GetCost()}");
 
-        //    Console.WriteLine();
+            Console.WriteLine();
 
-        //    coffee =
-        //        new MilkDecorator(coffee);
+            coffee = new MilkDecorator(coffee);
 
-        //    Console.WriteLine(
-        //        $"After Milk: {coffee.GetDescription()}");
+            Console.WriteLine($"After Milk: {coffee.GetDescription()}");
 
-        //    Console.WriteLine(
-        //        $"Cost: ₹{coffee.GetCost()}");
+            Console.WriteLine($"Cost: ₹{coffee.GetCost()}");
 
-        //    Console.WriteLine();
+            Console.WriteLine();
 
-        //    coffee =
-        //        new SugarDecorator(coffee);
+            coffee = new SugarDecorator(coffee);
 
-        //    Console.WriteLine(
-        //        $"After Sugar: {coffee.GetDescription()}");
+            Console.WriteLine($"After Sugar: {coffee.GetDescription()}");
 
-        //    Console.WriteLine(
-        //        $"Cost: ₹{coffee.GetCost()}");
-        //}
+            Console.WriteLine($"Cost: ₹{coffee.GetCost()}");
+        }
 
-        //private static void TestFacade()
-        //{
-        //    Console.WriteLine(
-        //        "========== FACADE PATTERN ==========");
+        private static void TestFacade()
+        {
+            Console.WriteLine("========== FACADE PATTERN ==========");
 
-        //    InventoryService inventory =
-        //        new InventoryService();
+            InventoryService inventory = new InventoryService();
 
-        //    PaymentService payment =
-        //        new PaymentService();
+            PaymentService payment = new PaymentService();
 
-        //    InvoiceService invoice =
-        //        new InvoiceService();
+            InvoiceService invoice = new InvoiceService();
 
-        //    EmailService email =
-        //        new EmailService();
+            EmailService email = new EmailService();
 
-        //    OrderFacade orderFacade =
-        //        new OrderFacade(
-        //            inventory,
-        //            payment,
-        //            invoice,
-        //            email);
+            OrderFacade orderFacade = new OrderFacade(inventory, payment, invoice, email);
 
-        //    orderFacade.PlaceOrder(
-        //        101,
-        //        5000);
-        //}
+            Console.Write("Enter Product ID: ");
+            int productId = int.Parse(Console.ReadLine());
 
-        //private static void TestFlyweight()
-        //{
-        //    Console.WriteLine(
-        //        "========== FLYWEIGHT PATTERN ==========");
+            Console.Write("Enter Amount: ");
+            decimal amount = decimal.Parse(Console.ReadLine());
 
-        //    TreeFactory factory =
-        //        new TreeFactory();
+            orderFacade.PlaceOrder(productId, amount);
+        }
 
-        //    TreeType tree1 =
-        //        factory.GetTreeType(
-        //            "Oak",
-        //            "Green");
+        private static void TestFlyweight()
+        {
+            Console.WriteLine("========== FLYWEIGHT PATTERN ==========");
 
-        //    TreeType tree2 =
-        //        factory.GetTreeType(
-        //            "Oak",
-        //            "Green");
+            TreeFactory factory = new TreeFactory();
 
-        //    TreeType tree3 =
-        //        factory.GetTreeType(
-        //            "Oak",
-        //            "Green");
+            TreeType tree1 = factory.GetTreeType(
+                    "Oak",
+                    "Green");
 
-        //    TreeType tree4 =
-        //        factory.GetTreeType(
-        //            "Pine",
-        //            "Dark Green");
+            TreeType tree2 = factory.GetTreeType(
+                    "Oak",
+                    "Green");
 
-        //    tree1.Display(10, 20);
+            TreeType tree3 = factory.GetTreeType(
+                    "Oak",
+                    "Green");
 
-        //    tree2.Display(30, 40);
+            TreeType tree4 = factory.GetTreeType(
+                    "Pine",
+                    "Dark Green");
 
-        //    tree3.Display(50, 60);
+            tree1.Display(10, 20);
 
-        //    tree4.Display(70, 80);
+            tree2.Display(30, 40);
 
-        //    Console.WriteLine();
+            tree3.Display(50, 60);
 
-        //    Console.WriteLine(
-        //        $"Unique TreeType objects: " +
-        //        $"{factory.GetTreeTypeCount()}");
+            tree4.Display(70, 80);
 
-        //    Console.WriteLine();
+            Console.WriteLine();
 
-        //    Console.WriteLine(
-        //        "Are tree1 and tree2 the same object?");
+            Console.WriteLine(
+                $"Unique TreeType objects: " +
+                $"{factory.GetTreeTypeCount()}");
 
-        //    Console.WriteLine(
-        //        ReferenceEquals(tree1, tree2));
-        //}
+            Console.WriteLine();
 
-        //private static void TestProxy()
-        //{
-        //    Console.WriteLine(
-        //        "========== PROXY PATTERN ==========");
+            Console.WriteLine("Are tree1 and tree2 the same object?");
 
-        //    Console.WriteLine(
-        //        "--- Unauthorized User ---");
+            Console.WriteLine(ReferenceEquals(tree1, tree2));
+        }
 
-        //    IDocument unauthorizedDocument =
-        //        new DocumentProxy(false);
+        private static void TestProxy()
+        {
+            Console.WriteLine("========== PROXY PATTERN ==========");
 
-        //    unauthorizedDocument.Read();
+            Console.WriteLine("--- Unauthorized User ---");
 
-        //    Console.WriteLine();
+            IDocument unauthorizedDocument = new DocumentProxy(false);
 
-        //    Console.WriteLine(
-        //        "--- Authorized User ---");
+            unauthorizedDocument.Read();
 
-        //    IDocument authorizedDocument =
-        //        new DocumentProxy(true);
+            Console.WriteLine();
 
-        //    authorizedDocument.Read();
-        //}
+            Console.WriteLine("--- Authorized User ---");
+
+            IDocument authorizedDocument = new DocumentProxy(true);
+
+            authorizedDocument.Read();
+        }
     }
 }
